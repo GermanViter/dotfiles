@@ -21,7 +21,7 @@ return {
       vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
       vim.keymap.set("n", "<leader>fh", builtin.oldfiles, {})
-      vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal left<CR>", {})
+      vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", {})
     end,
   }
 }
