@@ -34,7 +34,7 @@ theme = catppuccin mocha
 # custom-shader = shaders/bloom075.glsl
 # custom-shader = shaders/bloom060.glsl
 # custom-shader = shaders/bloom050.glsl
-custom-shader = shaders/bloom025.glsl
+# custom-shader = shaders/bloom025.glsl
 # custom-shader = shaders/bloom050.glsl
 # custom-shader = shaders/bloom060.glsl
 # custom-shader = shaders/bloom075.glsl
@@ -279,7 +279,7 @@ macos-icon = official
 # widgets to show through which isn't generally desirable.
 # 
 # On macOS, changing this configuration requires restarting Ghostty completely.
-background-opacity = 0.83
+background-opacity = 0.7
 ############
 
 
@@ -317,7 +317,7 @@ background-opacity = 0.83
 # need to set environment-specific settings and/or install third-party plugins
 # in order to support background blur, as there isn't a unified interface for
 # doing so.
-background-blur = true
+background-blur = false
 
 # The opacity level (opposite of transparency) of an unfocused split.
 # Unfocused splits by default are slightly faded out to make it easier to see
