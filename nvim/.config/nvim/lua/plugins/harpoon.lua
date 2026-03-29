@@ -27,10 +27,10 @@ return {
         desc = "Harpoon Quick Menu",
       },
     }
-
+    -- use leaeder + i to jump to the i'th file in the harpoon list
     for i = 1, 9 do
       table.insert(keys, {
-        "<C-" .. i .. ">",
+        "<leader>" .. i,
         function()
           require("harpoon"):list():select(i)
         end,
