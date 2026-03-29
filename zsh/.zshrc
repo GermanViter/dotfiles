@@ -39,6 +39,3 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 25)
 eval "$(zoxide init zsh)"
 alias cd='zi'
 
-# for nvim
-export NVIM='~/.dotfiles/nvim/.config'
-alias bakvim='$NVIM/nvim/ $NVIM/nvim1.bak && mv $NVIM/nvim1.bak/ $NVIM/nvim'
