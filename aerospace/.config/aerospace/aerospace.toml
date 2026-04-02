@@ -191,7 +191,7 @@ alt-shift-l = ['join-with right', 'mode main']
 # configure claude ai to open in workspace 3 on every monitor
 # configure mircosoft teams to open in workspace 4 on every monitor
 # conifgure intelliJ idea to open in workspace 5 on every monitor
-
+# open obsidian in workspace 3 on every monitor
 
 [[on-window-detected]]
 if.app-id = "com.brave.browser"
@@ -213,7 +213,9 @@ run = ['move-node-to-workspace 4']
 if.app-id = "com.jetbrains.intellij"
 run = ['move-node-to-workspace 5']
 
-
+[[on-window-detected]]
+if.app-id = "md.obsidian"
+run = ['move-node-to-workspace 3']
 
 
 
