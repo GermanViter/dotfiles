@@ -10,6 +10,12 @@ cmdhist() {
   fc -l 1 | awk '{print $2}' | sort | uniq -c | sort -nr | head -$1
 }
 
+linec() {
+    find . -type f -exec wc -l {} + | awk '{total += $1} END {print total}' 
+}
+
+export EDITOR='nvim'
+
 #oh my zsh
 source $ZSH/oh-my-zsh.sh
 
