@@ -5,8 +5,8 @@ add_newline = true
 # The main format string for the prompt
 # We avoid complex escapes by separating decorative characters into their own styled groups.
 format = '''
-[┌──\(](bold green)$username[㉿](bold green)$hostname[\)─\[](bold green)$directory[\]](bold green) $git_branch$git_status
-[└─](bold green)$character'''
+[┌──\(](bold green)$username[㉿](bold green)$hostname[\)─\[](bold green)$directory[\]-\[](bold green)$git_branch$git_status[\]](bold green)
+[└─>](bold green)$character'''
 
 [username]
 show_always = true
@@ -32,8 +32,8 @@ error_symbol = '[\$](bold red)'
 [git_branch]
 symbol = " "
 style = "bold green"
-format = "on [$symbol$branch]($style) "
+format = "[$symbol$branch]($style) "
 
 [git_status]
 style = "bold red"
-format = '([\[$all_status$ahead_behind\]]($style) )'
+format = '([\[$all_status$ahead_behind\]]($style))'
