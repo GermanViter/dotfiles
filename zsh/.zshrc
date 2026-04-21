@@ -1,65 +1,57 @@
+# --- Shell Configuration & Oh-My-Zsh ---
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_TITLE="true"
-
 ZSH_THEME=""
-
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
 source /opt/homebrew/Cellar/zsh-autocomplete/
 
-alias vi='nvim'
-cmdhist() {
-  fc -l 1 | awk '{print $2}' | sort | uniq -c | sort -nr | head -$1
-}
-
-linec() {
-    find . -type f -exec wc -l {} + | awk '{total += $1} END {print total}' 
-}
-
-alias claude='ollama launch claude --model gemma4:31b-cloud'
-
+# --- Editor ---
 export EDITOR='nvim'
+alias vi='nvim'
 
-#oh my zsh
-source $ZSH/oh-my-zsh.sh
-
-#starship
-eval "$(starship init zsh)"
+# --- Starship ---
 export STARSHIP_CONFIG=~/.dotfiles/starship/.config/starship.toml
+eval "$(starship init zsh)"
 
-#tmux
+# --- Zoxide (Navigation) ---
+eval "$(zoxide init zsh)"
+alias cd='zi'
 
-alias tms='tmux attach-session -t $1'
+# --- Eza (Modern ls) ---
+alias ls='eza --icons=always -1'
 
-#fzf
+# --- Bat (Modern cat) ---
+export BAT_THEME='rose-pine'
+alias cat='bat'
+
+# --- Fzf (Fuzzy Finder) ---
 source <(fzf --zsh)
 alias fzshow='fzf --preview="bat --color=always {}"'
 alias fzvim='nvim $(fzf --preview="bat --color=always {}")'
 
+# --- Tmux ---
+alias tms='tmux attach-session -t $1'
 
-#gemini sync 
-alias gsync='python3 /Users/germaviter/.gemini/scripts/obsidian_sync.py'
+# --- AI & Sync Tools ---
+alias claude='ollama launch claude --model gemma4:31b-cloud'
 alias claw='ollama launch openclaw --model glm-5:cloud'
+alias gsync='python3 /Users/germaviter/.gemini/scripts/obsidian_sync.py'
 
+# --- Development Environment (Java, Go, Python) ---
+export JAVA_HOME=$(/usr/libexec/java_home -v 25)
 export PATH=$PATH:$HOME/go/bin
 export PATH="$PATH:/opt/homebrew/lib/python3.14/site-packages/pip"
-
-
-# Created by `pipx` on 2026-01-05 02:47:26
 export PATH="$PATH:/Users/germaviter/.local/bin"
-export JAVA_HOME=$(/usr/libexec/java_home)
-export JAVA_HOME=$(/usr/libexec/java_home -v 25)
 
-#zoxide
-eval "$(zoxide init zsh)"
-alias cd='zi'
+# --- Custom Functions ---
+# Show most used commands
+cmdhist() {
+  fc -l 1 | awk '{print $2}' | sort | uniq -c | sort -nr | head -$1
+}
 
-#eza
-alias ls='eza --icons=always -1'
-
-
-# bat
-alias cat='bat'
-export BAT_THEME='rose-pine'
-
-
-
+# Count total lines of code in current directory
+linec() {
+    find . -type f -exec wc -l {} + | awk '{total += $1} END {print total}' 
+}
