@@ -24,6 +24,7 @@ source $ZSH/oh-my-zsh.sh
 
 #starship
 eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.dotfiles/starship/.config/starship.toml
 
 #tmux
 
