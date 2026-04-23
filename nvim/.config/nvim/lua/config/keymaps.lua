@@ -9,7 +9,7 @@ vim.keymap.set("n", "<C-j>", ":m .+1<CR>==")
 vim.keymap.set("i", "jj", "<Esc>")
 
 -- netrw
-vim.keymap.set("n", "<leader>e", ":e .<CR>")
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- undo tree toggle
 vim.keymap.set("n", "<leader>U", ":UndotreeToggle<CR>")
