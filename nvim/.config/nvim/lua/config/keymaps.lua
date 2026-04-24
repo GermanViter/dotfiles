@@ -11,5 +11,9 @@ vim.keymap.set("i", "jj", "<Esc>")
 -- netrw
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+--increment/decrement
+vim.keymap.set("n", "<leader>i", "<C-a>")
+vim.keymap.set("n", "<leader>d", "<C-x>")
+
 -- undo tree toggle
 vim.keymap.set("n", "<leader>U", ":UndotreeToggle<CR>")
