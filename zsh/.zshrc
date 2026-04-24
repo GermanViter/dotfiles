@@ -3,7 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_TITLE="true"
 ZSH_THEME=""
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
+export ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 source /opt/homebrew/Cellar/zsh-autocomplete/
 
