@@ -1,74 +1,220 @@
 #!/bin/bash
 
 # setup_symlinks.sh - Automate symlinking of dotfiles to ~/.config and ~/
+# Usage:
+#   ./setup_symlinks.sh              → crée les symlinks
+#   ./setup_symlinks.sh --dry-run    → simule sans modifier
+#   ./setup_symlinks.sh --unlink     → supprime les symlinks (restaure les sauvegardes si dispo)
+#   ./setup_symlinks.sh --help       → affiche l'aide
 
-# Get the absolute path of the dotfiles directory (parent of the scripts folder)
+set -euo pipefail
+
 DOTFILES_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 CONFIG_DIR="$HOME/.config"
+BACKUP_DIR="$HOME/.dotfiles_backup"
+DRY_RUN=false
+UNLINK=false
 
-# Ensure ~/.config exists
-mkdir -p "$CONFIG_DIR"
+# ── Couleurs ───────────────────────────────────────────────────────────────────
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+RESET='\033[0m'
 
-echo "Starting symlink setup from $DOTFILES_DIR"
+log_info() { echo -e "${BLUE}  →${RESET} $*"; }
+log_success() { echo -e "${GREEN}  ✓${RESET} $*"; }
+log_warn() { echo -e "${YELLOW}  ⚠${RESET} $*"; }
+log_error() { echo -e "${RED}  ✗${RESET} $*" >&2; }
+log_remove() { echo -e "${CYAN}  ✕${RESET} $*"; }
 
-# Iterate over all directories in the dotfiles folder
-for app_dir in "$DOTFILES_DIR"/*/; do
-    # Remove trailing slash and get the folder name
-    app_dir=${app_dir%/}
-    app_name=$(basename "$app_dir")
-
-    # Skip the scripts directory and any hidden directories (like .git)
-    if [[ "$app_name" == "scripts" || "$app_name" == "gemini" || "$app_name" == .* ]]; then
-        continue
-    fi
-
-    echo "Processing: $app_name"
-
-    # 1. Handle contents of the .config directory within each app folder
-    if [ -d "$app_dir/.config" ]; then
-        for item in "$app_dir/.config"/*; do
-            # Skip if the glob didn't match anything
-            [ -e "$item" ] || continue
-            
-            target_name=$(basename "$item")
-            target_path="$CONFIG_DIR/$target_name"
-            
-            echo "  Linking ~/.config/$target_name -> $item"
-            # -s: symbolic, -f: force (overwrite existing), -n: treat link to directory as a file
-            ln -sfn "$item" "$target_path"
-        done
-        
-        # Also check for hidden files inside .config (e.g., .config/.something)
-        for item in "$app_dir/.config"/.*; do
-            basename_item=$(basename "$item")
-            if [[ "$basename_item" == "." || "$basename_item" == ".." ]]; then
-                continue
-            fi
-            [ -e "$item" ] || continue
-            
-            target_path="$CONFIG_DIR/$basename_item"
-            echo "  Linking ~/.config/$basename_item -> $item"
-            ln -sfn "$item" "$target_path"
-        done
-    fi
-
-    # 2. Handle top-level dotfiles within each app folder (e.g., .zshrc, .tmux.conf)
-    # This links anything starting with a dot in the app folder to the home directory,
-    # EXCEPT for the .config directory which we handled above.
-    for item in "$app_dir"/.*; do
-        basename_item=$(basename "$item")
-        
-        # Skip current dir, parent dir, and .config
-        if [[ "$basename_item" == "." || "$basename_item" == ".." || "$basename_item" == ".config" ]]; then
-            continue
-        fi
-        
-        [ -e "$item" ] || continue
-        
-        target_path="$HOME/$basename_item"
-        echo "  Linking ~/$basename_item -> $item"
-        ln -sfn "$item" "$target_path"
-    done
+# ── Arguments ──────────────────────────────────────────────────────────────────
+for arg in "$@"; do
+    case $arg in
+    --dry-run)
+        DRY_RUN=true
+        echo -e "${YELLOW}[DRY RUN — aucun fichier ne sera modifié]${RESET}\n"
+        ;;
+    --unlink)
+        UNLINK=true
+        echo -e "${CYAN}[MODE UNLINK — suppression des symlinks]${RESET}\n"
+        ;;
+    --help)
+        echo "Usage: $0 [--dry-run | --unlink]"
+        echo ""
+        echo "  (aucun argument)  Crée les symlinks depuis le dossier dotfiles"
+        echo "  --dry-run         Simule sans modifier le système"
+        echo "  --unlink          Supprime les symlinks gérés (restaure les sauvegardes si disponibles)"
+        echo "  --help            Affiche cette aide"
+        exit 0
+        ;;
+    *)
+        log_error "Argument inconnu : $arg"
+        echo "Lance '$0 --help' pour voir les options."
+        exit 1
+        ;;
+    esac
 done
 
+echo -e "${BLUE}Dotfiles :${RESET} $DOTFILES_DIR\n"
+
+# ── Collecte des cibles gérées ─────────────────────────────────────────────────
+# Retourne dans stdout la liste des (src dst) que le script gèrerait
+collect_targets() {
+    for app_dir in "$DOTFILES_DIR"/*/; do
+        app_dir=${app_dir%/}
+        app_name=$(basename "$app_dir")
+        [[ "$app_name" == "scripts" || "$app_name" == "gemini" || "$app_name" == .* ]] && continue
+
+        if [ -d "$app_dir/.config" ]; then
+            for item in "$app_dir/.config"/* "$app_dir/.config"/.*; do
+                [ -e "$item" ] || continue
+                base=$(basename "$item")
+                [[ "$base" == "." || "$base" == ".." ]] && continue
+                echo "$item $CONFIG_DIR/$base"
+            done
+        fi
+
+        for item in "$app_dir"/.*; do
+            [ -e "$item" ] || continue
+            base=$(basename "$item")
+            [[ "$base" == "." || "$base" == ".." || "$base" == ".config" ]] && continue
+            echo "$item $HOME/$base"
+        done
+    done
+}
+
+# ── Mode UNLINK ────────────────────────────────────────────────────────────────
+run_unlink() {
+    local removed=0
+    local restored=0
+    local skipped=0
+
+    # Chercher la sauvegarde la plus récente
+    local latest_backup=""
+    if [ -d "$BACKUP_DIR" ]; then
+        latest_backup=$(ls -1t "$BACKUP_DIR" 2>/dev/null | head -n1)
+    fi
+
+    while IFS=' ' read -r src dst; do
+        if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+            if $DRY_RUN; then
+                log_remove "[dry-run] Supprimerait le lien : $dst"
+            else
+                rm "$dst"
+                log_remove "Lien supprimé : $dst"
+                ((removed++)) || true
+
+                # Restauration depuis sauvegarde si disponible
+                if [ -n "$latest_backup" ]; then
+                    local backup_file="$BACKUP_DIR/$latest_backup/$(basename "$dst")"
+                    if [ -e "$backup_file" ]; then
+                        cp -r "$backup_file" "$dst"
+                        log_success "Restauré depuis sauvegarde : $(basename "$dst")"
+                        ((restored++)) || true
+                    fi
+                fi
+            fi
+        elif [ -L "$dst" ]; then
+            # Lien cassé pointant vers autre chose
+            log_warn "Ignoré (lien non géré) : $dst"
+            ((skipped++)) || true
+        else
+            log_info "Ignoré (pas un symlink) : $dst"
+            ((skipped++)) || true
+        fi
+    done < <(collect_targets)
+
+    echo ""
+    if $DRY_RUN; then
+        echo -e "${YELLOW}(Dry-run — aucun fichier modifié)${RESET}"
+    else
+        echo -e "${GREEN}✓ Unlink terminé${RESET} — supprimés: $removed | restaurés: $restored | ignorés: $skipped"
+        [ -n "$latest_backup" ] && echo -e "  Sauvegarde utilisée : $BACKUP_DIR/$latest_backup"
+    fi
+}
+
+# ── Fonction de création de symlink ───────────────────────────────────────────
+make_link() {
+    local src="$1"
+    local dst="$2"
+
+    # Lien déjà correct → skip
+    if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+        log_info "Déjà lié : $(basename "$dst")"
+        return
+    fi
+
+    # Lien cassé → supprimer
+    if [ -L "$dst" ] && [ ! -e "$dst" ]; then
+        log_warn "Lien cassé supprimé : $dst"
+        $DRY_RUN || rm "$dst"
+    fi
+
+    # Fichier/dossier réel existant → sauvegarde
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        local session_backup="${BACKUP_SESSION_DIR:-}"
+        if [ -z "$session_backup" ]; then
+            log_warn "Sauvegarde impossible (session non initialisée) : $dst"
+        else
+            log_warn "Sauvegarde : $(basename "$dst") → $session_backup/"
+            $DRY_RUN || {
+                cp -r "$dst" "$session_backup/"
+                rm -rf "$dst"
+            }
+        fi
+    fi
+
+    if $DRY_RUN; then
+        log_info "[dry-run] Lierait : $(basename "$dst") → $src"
+    else
+        ln -sfn "$src" "$dst"
+        log_success "$(basename "$dst") → $src"
+    fi
+}
+
+# ── Mode LINK (défaut) ────────────────────────────────────────────────────────
+run_link() {
+    # Initialiser le dossier de sauvegarde de cette session
+    export BACKUP_SESSION_DIR="$BACKUP_DIR/$(date +%Y%m%d_%H%M%S)"
+
+    mkdir -p "$CONFIG_DIR"
+
+    for app_dir in "$DOTFILES_DIR"/*/; do
+        app_dir=${app_dir%/}
+        app_name=$(basename "$app_dir")
+        [[ "$app_name" == "scripts" || "$app_name" == "gemini" || "$app_name" == .* ]] && continue
+
+        echo -e "${BLUE}▸ $app_name${RESET}"
+
+        if [ -d "$app_dir/.config" ]; then
+            for item in "$app_dir/.config"/* "$app_dir/.config"/.*; do
+                [ -e "$item" ] || continue
+                base=$(basename "$item")
+                [[ "$base" == "." || "$base" == ".." ]] && continue
+                make_link "$item" "$CONFIG_DIR/$base"
+            done
+        fi
+
+        for item in "$app_dir"/.*; do
+            [ -e "$item" ] || continue
+            base=$(basename "$item")
+            [[ "$base" == "." || "$base" == ".." || "$base" == ".config" ]] && continue
+            make_link "$item" "$HOME/$base"
+        done
+    done
+
+    echo ""
+    echo -e "${GREEN}✓ Symlinks installés !${RESET}"
+    $DRY_RUN && echo -e "${YELLOW}(Mode dry-run — relance sans --dry-run pour appliquer)${RESET}"
+    [ -d "$BACKUP_SESSION_DIR" ] && echo -e "Sauvegardes dans : $BACKUP_SESSION_DIR"
+}
+
+# ── Dispatch ───────────────────────────────────────────────────────────────────
+if $UNLINK; then
+    run_unlink
+else
+    run_link
+fi
 echo "Symlink setup complete!"

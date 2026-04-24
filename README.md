@@ -23,27 +23,31 @@ To apply these configurations to a new system:
    ```bash
    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
    ```
-2. **If you dont't want git tracking, you can remove the .git directory**
+
+2. **Run the setup script:**
+   The script can be run from any directory and supports several options:
    ```bash
-   rm -rf .git
+   ~/.dotfiles/scripts/setup_symlinks.sh
    ```
 
-3. **Run the setup script:**
-   ```bash
-   cd ~/.dotfiles
-   ./scripts/setup_symlinks.sh
-   ```
+### Script Options
+
+- `(no arguments)`: Creates symlinks and backs up existing files.
+- `--dry-run`: Simulates the process without making any changes.
+- `--unlink`: Removes the symlinks and restores backups if available.
+- `--help`: Displays help information.
 
 ## How it Works
 
-The `scripts/setup_symlinks.sh` script automates the configuration by:
+The `scripts/setup_symlinks.sh` script is designed to be portable and robust:
 
-1. **Mapping `.config` subfolders**: For any app folder containing a `.config/` directory, the script symlinks the contents into `~/.config/`.
-   - *Example*: `fastfetch/.config/fastfetch` -> `~/.config/fastfetch`
-2. **Mapping top-level dotfiles**: Any hidden file (starting with `.`) in an app's root folder is symlinked directly to your home directory.
-   - *Example*: `zsh/.zshrc` -> `~/.zshrc`
-
-The script is **idempotent**, meaning you can run it multiple times safely to update your links if you add new files or pull updates from the repository.
+1. **Location Agnostic**: It automatically finds the root of the dotfiles repository.
+2. **Automatic Backups**: If a real file or directory exists where a symlink should be, it is backed up to `~/.dotfiles_backup/` before being replaced.
+3. **Smart Linking**:
+   - **`.config` folders**: Links contents of `app/.config/` into `~/.config/`.
+   - **Top-level dotfiles**: Links hidden files (e.g., `.zshrc`) into `~/`.
+4. **Logging**: Uses color-coded output to clearly show what was linked, skipped, or backed up.
+5. **Idempotency**: Safe to run multiple times; it will skip already correct links.
 
 ## Adding New Configs
 
