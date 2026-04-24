@@ -4,7 +4,7 @@ Personal configuration files and environment settings for macOS and Linux.
 
 ## Overview
 
-This repository uses a modular structure where each directory represents an application or tool. A central setup script manages the creation of symbolic links from the repository to your home directory and `~/.config` folder.
+This repository uses a modular structure where each directory represents an application or tool. A central setup script manages the creation of symbolic links from the repository to your home directory and `~/.config` folder, and handles system dependencies via Homebrew.
 
 ## Managed Applications
 
@@ -13,6 +13,7 @@ This repository uses a modular structure where each directory represents an appl
 - **Prompt**: [Starship](https://starship.rs/)
 - **UI/Window Management**: [Aerospace](https://github.com/nikitabobko/AeroSpace), [Ghostty](https://ghostty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/), [Karabiner](https://karabiner-elements.pqrs.org/)
 - **CLI Tools**: [Fastfetch](https://github.com/fastfetch-cli/fastfetch), [Bat](https://github.com/sharkdp/bat), [Yazi](https://github.com/sxyazi/yazi), [Neofetch](https://github.com/dylanaraps/neofetch)
+- **Package Management**: [Homebrew](https://brew.sh/) (via Brewfile)
 - **Others**: Raycast, Macmon, Envman, JGit
 
 ## Installation
@@ -27,12 +28,13 @@ To apply these configurations to a new system:
 2. **Run the setup script:**
    The script can be run from any directory and supports several options:
    ```bash
-   ~/.dotfiles/scripts/setup_symlinks.sh
+   ~/.dotfiles/scripts/setup_symlinks.sh --brew
    ```
 
 ### Script Options
 
 - `(no arguments)`: Creates symlinks and backs up existing files.
+- `--brew`: Installs all packages listed in the `Brewfile` using Homebrew.
 - `--dry-run`: Simulates the process without making any changes.
 - `--unlink`: Removes the symlinks and restores backups if available.
 - `--help`: Displays help information.
@@ -46,8 +48,10 @@ The `scripts/setup_symlinks.sh` script is designed to be portable and robust:
 3. **Smart Linking**:
    - **`.config` folders**: Links contents of `app/.config/` into `~/.config/`.
    - **Top-level dotfiles**: Links hidden files (e.g., `.zshrc`) into `~/`.
-4. **Logging**: Uses color-coded output to clearly show what was linked, skipped, or backed up.
-5. **Idempotency**: Safe to run multiple times; it will skip already correct links.
+   - **Special files**: Symlinks the root `Brewfile` to `~/.Brewfile`.
+4. **Homebrew Integration**: The `--brew` flag uses `brew bundle` to install all taps, brews, and casks defined in the `Brewfile`.
+5. **Logging**: Uses color-coded output to clearly show what was linked, skipped, or backed up.
+6. **Idempotency**: Safe to run multiple times; it will skip already correct links.
 
 ## Adding New Configs
 

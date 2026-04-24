@@ -5,6 +5,7 @@
 #   ./setup_symlinks.sh              → crée les symlinks
 #   ./setup_symlinks.sh --dry-run    → simule sans modifier
 #   ./setup_symlinks.sh --unlink     → supprime les symlinks (restaure les sauvegardes si dispo)
+#   ./setup_symlinks.sh --brew       → installe les paquets via Homebrew
 #   ./setup_symlinks.sh --help       → affiche l'aide
 
 set -euo pipefail
@@ -14,6 +15,7 @@ CONFIG_DIR="$HOME/.config"
 BACKUP_DIR="$HOME/.dotfiles_backup"
 DRY_RUN=false
 UNLINK=false
+RUN_BREW=false
 
 # ── Couleurs ───────────────────────────────────────────────────────────────────
 RED='\033[0;31m'
@@ -40,12 +42,16 @@ for arg in "$@"; do
         UNLINK=true
         echo -e "${CYAN}[MODE UNLINK — suppression des symlinks]${RESET}\n"
         ;;
+    --brew)
+        RUN_BREW=true
+        ;;
     --help)
-        echo "Usage: $0 [--dry-run | --unlink]"
+        echo "Usage: $0 [--dry-run | --unlink | --brew]"
         echo ""
         echo "  (aucun argument)  Crée les symlinks depuis le dossier dotfiles"
         echo "  --dry-run         Simule sans modifier le système"
         echo "  --unlink          Supprime les symlinks gérés (restaure les sauvegardes si disponibles)"
+        echo "  --brew            Installe les paquets via Homebrew (Brewfile)"
         echo "  --help            Affiche cette aide"
         exit 0
         ;;
@@ -62,6 +68,7 @@ echo -e "${BLUE}Dotfiles :${RESET} $DOTFILES_DIR\n"
 # ── Collecte des cibles gérées ─────────────────────────────────────────────────
 # Retourne dans stdout la liste des (src dst) que le script gèrerait
 collect_targets() {
+    # 1. Dossiers d'applications
     for app_dir in "$DOTFILES_DIR"/*/; do
         app_dir=${app_dir%/}
         app_name=$(basename "$app_dir")
@@ -83,6 +90,11 @@ collect_targets() {
             echo "$item $HOME/$base"
         done
     done
+
+    # 2. Cas particuliers (Brewfile à la racine)
+    if [ -f "$DOTFILES_DIR/Brewfile" ]; then
+        echo "$DOTFILES_DIR/Brewfile $HOME/.Brewfile"
+    fi
 }
 
 # ── Mode UNLINK ────────────────────────────────────────────────────────────────
@@ -174,6 +186,28 @@ make_link() {
     fi
 }
 
+# ── Mode Homebrew ─────────────────────────────────────────────────────────────
+run_brew() {
+    if ! command -v brew &>/dev/null; then
+        log_error "Homebrew n'est pas installé. Installe-le d'abord : https://brew.sh/"
+        return 1
+    fi
+
+    if [ ! -f "$DOTFILES_DIR/Brewfile" ]; then
+        log_error "Aucun Brewfile trouvé dans $DOTFILES_DIR"
+        return 1
+    fi
+
+    echo -e "${BLUE}▸ Homebrew (Brewfile)${RESET}"
+    if $DRY_RUN; then
+        log_info "[dry-run] Exécuterait : brew bundle install --file=\"$DOTFILES_DIR/Brewfile\""
+    else
+        log_info "Installation des paquets Homebrew..."
+        brew bundle install --file="$DOTFILES_DIR/Brewfile"
+        log_success "Installation Homebrew terminée"
+    fi
+}
+
 # ── Mode LINK (défaut) ────────────────────────────────────────────────────────
 run_link() {
     # Initialiser le dossier de sauvegarde de cette session
@@ -181,6 +215,7 @@ run_link() {
 
     mkdir -p "$CONFIG_DIR"
 
+    # 1. Symlinks des dossiers d'applications
     for app_dir in "$DOTFILES_DIR"/*/; do
         app_dir=${app_dir%/}
         app_name=$(basename "$app_dir")
@@ -205,6 +240,12 @@ run_link() {
         done
     done
 
+    # 2. Symlinks des fichiers à la racine (Brewfile, etc.)
+    if [ -f "$DOTFILES_DIR/Brewfile" ]; then
+        echo -e "${BLUE}▸ Cas particuliers${RESET}"
+        make_link "$DOTFILES_DIR/Brewfile" "$HOME/.Brewfile"
+    fi
+
     echo ""
     echo -e "${GREEN}✓ Symlinks installés !${RESET}"
     $DRY_RUN && echo -e "${YELLOW}(Mode dry-run — relance sans --dry-run pour appliquer)${RESET}"
@@ -212,9 +253,15 @@ run_link() {
 }
 
 # ── Dispatch ───────────────────────────────────────────────────────────────────
+if $RUN_BREW; then
+    run_brew
+fi
+
 if $UNLINK; then
     run_unlink
 else
+    # Si --brew était le seul argument, on ne lance pas forcément run_link
+    # Mais par défaut, on lance run_link si --unlink n'est pas là
     run_link
 fi
 echo "Symlink setup complete!"
