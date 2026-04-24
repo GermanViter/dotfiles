@@ -23,8 +23,12 @@ To apply these configurations to a new system:
    ```bash
    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
    ```
+2. **If you dont't want git tracking, you can remove the .git directory**
+   ```bash
+   rm -rf .git
+   ```
 
-2. **Run the setup script:**
+3. **Run the setup script:**
    ```bash
    cd ~/.dotfiles
    ./scripts/setup_symlinks.sh
