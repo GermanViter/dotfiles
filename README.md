@@ -1,6 +1,15 @@
 # Dotfiles
 
-Personal configuration files and environment settings for macOS and Linux.
+## Contents
+- [Overview](#overview)
+- [Screenshots](#screenshots)
+- [Managed Applications](#managed-applications)
+- [Dependencies](#dependencies)
+- [Installation](#installation)
+- [Script Options](#script-options)
+- [How it Works](#how-it-works)
+- [Troubleshooting](#troubleshooting)
+- [Adding New Configs](#adding-new-configs)
 
 ## Overview
 
@@ -23,6 +32,11 @@ This repository uses a modular structure where each directory represents an appl
 - **CLI Tools**: [Fastfetch](https://github.com/fastfetch-cli/fastfetch), [Bat](https://github.com/sharkdp/bat), [Yazi](https://github.com/sxyazi/yazi), [Neofetch](https://github.com/dylanaraps/neofetch)
 - **Package Management**: [Homebrew](https://brew.sh/) (via Brewfile)
 - **Others**: Raycast, Macmon, Envman, JGit
+
+## dependencies
+- Homebrew (for package management)
+- Git (for cloning the repository)
+- Zsh (for shell configurations)
 
 ## Installation
 
@@ -60,6 +74,11 @@ The `scripts/setup_symlinks.sh` script is designed to be portable and robust:
 4. **Homebrew Integration**: The `--brew` flag uses `brew bundle` to install all taps, brews, and casks defined in the `Brewfile`.
 5. **Logging**: Uses color-coded output to clearly show what was linked, skipped, or backed up.
 6. **Idempotency**: Safe to run multiple times; it will skip already correct links.
+
+## Troubleshooting
+- If you encounter issues with symlinks, check the backup directory for any files that were moved.
+- Ensure you have Homebrew installed if you plan to use the `--brew` option.
+- For any application-specific issues, refer to the respective application's documentation or open an issue in this repository.
 
 ## Adding New Configs
 
