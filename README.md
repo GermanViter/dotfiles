@@ -24,16 +24,16 @@ This repository uses a modular structure where each directory represents an appl
   <img src="assets/fastfetch.png" width="400" />
   <img src="assets/neovim.png" width="400" />
   <img src="assets/yazi.png" width="400" />
-  <img src="assets/cyber_girl.png" width="400" />
+  <img src="assets/cyber_girl.jpg" width="400" />
 </p>
 
 ## Managed Applications
 
-- **Terminal/Shell**: [Zsh](https://www.zsh.org/), [Tmux](https://github.com/tmux/tmux)
+- **Terminal/Shell**: [Fish](https://fishshell.com/), [Zsh](https://www.zsh.org/), [Tmux](https://github.com/tmux/tmux)
 - **Editors**: [Neovim](https://neovim.io/) (LazyVim), [Zed](https://zed.dev/)
 - **Prompt**: [Starship](https://starship.rs/)
 - **UI/Window Management**: [Aerospace](https://github.com/nikitabobko/AeroSpace), [Ghostty](https://ghostty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/)
-- **CLI Tools**: [Fastfetch](https://github.com/fastfetch-cli/fastfetch), [Bat](https://github.com/sharkdp/bat), [Yazi](https://github.com/sxyazi/yazi), [Neofetch](https://github.com/dylanaraps/neofetch)
+- **CLI Tools**: [Fastfetch](https://github.com/fastfetch-cli/fastfetch), [Bat](https://github.com/sharkdp/bat), [Yazi](https://github.com/sxyazi/yazi)
 - **Package Management**: [Homebrew](https://brew.sh/) (via Brewfile)
 - **Others**: Macmon
 
@@ -92,7 +92,7 @@ The `scripts/setup_symlinks.sh` script is a wrapper around `stow`:
 ## Troubleshooting
 - If you can't run the script, ensure it has execute permissions:
   ```bash
-  chmod 777 ~/.dotfiles/scripts/setup_symlinks.sh
+  chmod +x ~/.dotfiles/scripts/setup_symlinks.sh
   ```
 - If you encounter issues with symlinks, check the backup directory for any files that were moved.
 - Ensure you have Homebrew installed if you plan to use the `--brew` option.
@@ -101,7 +101,13 @@ The `scripts/setup_symlinks.sh` script is a wrapper around `stow`:
 ## Adding New Configs
 
 To add a new application to this repo:
-1. Create a folder named after the application.
-2. If the config goes in `~/.config`, create a `.config` folder inside your new folder and put the config there.
-3. If the config goes in `~/` (like `.bashrc`), put it in the root of the new folder.
-4. Run `./scripts/setup_symlinks.sh` to apply the changes.
+1. **Create a folder** named after the application (e.g., `tmux`). 
+   - *Note: Avoid reserved names like `scripts`, `assets`, or `gemini` as the script is configured to ignore them.*
+   - *Note: Do not start the folder name with a dot (use `zsh/`, not `.zsh/`).*
+2. **Mirror the destination structure** inside that folder:
+   - If the config belongs in `~/.config/app/config`, create `app/.config/app/config`.
+   - If the config belongs in `~/.apprc`, create `app/.apprc`.
+3. **Run the setup script** to apply the changes:
+   ```bash
+   ./scripts/setup_symlinks.sh
+   ```
