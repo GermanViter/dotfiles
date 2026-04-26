@@ -27,6 +27,9 @@ This repository uses a modular structure where each directory represents an appl
   <img src="assets/cyber_girl.jpg" width="400" />
 </p>
 
+> [!TIP]
+> Checkout my wallpapers on [GermanViter/wallpapers](https://github.com/GermanViter/wallpapers).
+
 ## Managed Applications
 
 - **Terminal/Shell**: [Fish](https://fishshell.com/), [Zsh](https://www.zsh.org/), [Tmux](https://github.com/tmux/tmux)
