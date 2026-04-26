@@ -24,6 +24,7 @@ This repository uses a modular structure where each directory represents an appl
   <img src="assets/fastfetch.png" width="400" />
   <img src="assets/neovim.png" width="400" />
   <img src="assets/yazi.png" width="400" />
+  <img src="assets/cyber-girl.png" width="400" />
 </p>
 
 ## Managed Applications
