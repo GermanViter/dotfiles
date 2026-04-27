@@ -13,6 +13,7 @@ vim.opt.cursorline = true -- Highlight the current line
 vim.opt.signcolumn = "yes" -- Always show sign column (for gitsigns, LSP) to avoid text shifting
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<leader>l", "<cmd> Lazy <cr>")
+vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
 -- set keymap for moving current line up and down
 vim.keymap.set("n", "<C-j>", ":m .+1<CR>==")
 vim.keymap.set("n", "<C-k>", ":m .-2<CR>==")
