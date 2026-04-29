@@ -15,7 +15,5 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>i", "<C-a>")
 vim.keymap.set("n", "<leader>d", "<C-x>")
 
-vim.keymap.set("n", "q", ":nohlsearch<CR>")
-
 -- undo tree toggle
 vim.keymap.set("n", "<leader>U", ":UndotreeToggle<CR>")
