@@ -92,6 +92,16 @@ The `scripts/setup_symlinks.sh` script is a wrapper around `stow`:
 3. **Safety**: Stow will not overwrite existing real files. It only creates symlinks. If a file already exists, it will report a conflict.
 4. **Homebrew Integration**: The `--brew` flag uses `brew bundle` on the `brew/.Brewfile`.
 
+## Updating configurations
+To update your configurations after pulling new changes from the repository:
+1. Pull the latest changes:
+   ```bash
+   git pull
+   ```
+2. Re-run the setup script to apply any new symlinks:
+   ```bash
+   ~/.dotfiles/scripts/setup_symlinks.sh
+   ```
 
 ## Troubleshooting
 - If you can't run the script, ensure it has execute permissions:
