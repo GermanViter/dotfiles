@@ -109,7 +109,7 @@ The `scripts/switch-theme.sh` script allows you to quickly switch between differ
 - If you are on Linux, you can comment all the lines mentioning `osascript` to avoid errors.
 
 ### Modifying wallpapers
-It is normal that, at first the wallpaper doesn't change. Thats because I added only one in this repo. To add new wallpapers, add an image to assets/wallpapers/ and update the `WALLPAPER` variable in the `switch case` section for the theme you want. **As mentioned earlier, this feature is only for macOS users**
+To add new wallpapers, add an image to assets/wallpapers/ and update the `WALLPAPER` variable in the `switch case` section for the theme you want. **As mentioned earlier, this feature is only for macOS users**
 
 ---
 
