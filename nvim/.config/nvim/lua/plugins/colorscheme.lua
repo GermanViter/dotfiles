@@ -5,6 +5,7 @@ end
 
 local is_catppuccin = variant == "catppuccin"
 local is_black = variant == "black"
+local is_gruvbox = variant == "gruvbox"
 
 return {
   -- Catppuccin
@@ -24,20 +25,35 @@ return {
   },
   -- Black Metal (Gorgoroth)
   {
-    "tahayvr/matteblack.nvim",
+    "metalelf0/black-metal-theme-neovim",
     lazy = false,
-    name = "matteblack",
+    name = "black-metal",
     enabled = is_black,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("matteblack")
+      vim.cmd.colorscheme("black-metal-gorgoroth")
+    end,
+  },
+  -- Gruvbox
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = false,
+    name = "gruvbox",
+    enabled = is_gruvbox,
+    priority = 1000,
+    config = function()
+      require("gruvbox").setup({
+        contrast = "soft",
+        transparent_mode = true,
+      })
+      vim.cmd.colorscheme("gruvbox")
     end,
   },
   -- Rosé Pine
   {
     "rose-pine/neovim",
     name = "rose-pine",
-    enabled = not (is_catppuccin or is_black),
+    enabled = not (is_catppuccin or is_black or is_gruvbox),
     priority = 1000,
     config = function()
       require("rose-pine").setup({

@@ -1,1 +1,1 @@
-return "main"
+return "gruvbox"

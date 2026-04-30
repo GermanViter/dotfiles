@@ -10,7 +10,7 @@
 THEME=$1
 
 if [[ -z "$THEME" ]]; then
-    echo "Usage: switch-theme.sh [main|moon|dawn|catppuccin|black]"
+    echo "Usage: switch-theme.sh [main|moon|dawn|catppuccin|black|gruvbox]"
     exit 1
 fi
 
@@ -52,9 +52,15 @@ black)
     GHOSTTY_THEME="Black Metal (Gorgoroth)"
     KITTY_THEME="Black Metal"
     NVIM_VARIANT="black"
-    #WALLPAPER="2-dot-hands.jpg"
     WALLPAPER="1-dark-waters.jpg"
     YAZI_THEME="theme-black.toml"
+    ;;
+gruvbox)
+    YAZI_THEME="theme-gruvbox.toml"
+    GHOSTTY_THEME="Gruvbox Dark"
+    KITTY_THEME="Gruvbox Dark"
+    NVIM_VARIANT="gruvbox"
+    WALLPAPER="1-tree-tops.jpg"
     ;;
 *)
     echo "Unknown theme: $THEME"
