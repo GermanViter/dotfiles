@@ -94,8 +94,23 @@ echo "✓ Neovim variant updated"
 # Update Wallpaper
 WALLPAPER_PATH="$DOTFILES/assets/wallpapers/$WALLPAPER"
 if [ -f "$WALLPAPER_PATH" ]; then
-    # macOS requires absolute POSIX paths for AppleScript to work reliably
-    osascript -e "tell application \"System Events\" to tell every desktop to set picture to POSIX file \"$WALLPAPER_PATH\""
+    if [ "$(uname)" = "Darwin" ]; then
+        # macOS requires absolute POSIX paths for AppleScript to work reliably
+        osascript -e "tell application \"System Events\" to tell every desktop to set picture to POSIX file \"$WALLPAPER_PATH\""
+    elif [ "$(uname)" = "Linux" ]; then
+        # Check for common Linux wallpaper tools
+        if command -v feh >/dev/null 2>&1; then
+            feh --bg-fill "$WALLPAPER_PATH"
+        elif command -v swww >/dev/null 2>&1; then
+            swww img "$WALLPAPER_PATH"
+        elif command -v gsettings >/dev/null 2>&1; then
+            # GNOME fallback
+            gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"
+            gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER_PATH"
+        else
+            echo "! No supported wallpaper tool found (feh/swww/gsettings)"
+        fi
+    fi
     echo "✓ Wallpaper updated"
 else
     echo "✗ Wallpaper not found at $WALLPAPER_PATH"
