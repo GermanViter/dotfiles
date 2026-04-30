@@ -25,7 +25,7 @@ This repository uses a modular structure where each directory represents an appl
   <li><h3>Fastfetch </h3><img src="assets/fastfetch.png" width="400" /></li>
   <li><h3>Neovim</h3><img src="assets/neovim.png" width="400" /></li>
   <li><h3>Yazi</h3><img src="assets/yazi.png" width="400" /></li>
-  <li><h3>Starship Prompt</h3><img src="assets/prompt.jpg" width="400" /></li>
+  <li><h3>Starship Prompt</h3><img src="assets/prompt.png" width="400" /></li>
   <li><h3>Wallpaper</h3><img src="assets/wallpapers/cyber_girl.jpg" width="400" /></li>
 </ul>
 
