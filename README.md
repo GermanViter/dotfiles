@@ -103,6 +103,7 @@ The `scripts/switch-theme.sh` script allows you to quickly switch between differ
 - **Neovim**: Updates a local state file to switch between Rosé Pine variants or the Catppuccin plugin.
 - **Starship**: Symlinks the appropriate `.toml` config.
 - **Wallpaper**: Changes the system wallpaper (**macOS only**).
+- If you are on Linux, you can comment all the lines mentioning `osascript` to avoid errors.
 
 ---
 
