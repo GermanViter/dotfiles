@@ -10,6 +10,7 @@ Personal configuration files and environment settings for macOS and Linux.
 - [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Script Options](#script-options)
+- [Theme Switcher](#theme-switcher)
 - [How it Works](#how-it-works)
 - [Troubleshooting](#troubleshooting)
 - [Adding New Configs](#adding-new-configs)
@@ -80,6 +81,30 @@ To apply these configurations to a new system:
 - `--dry-run`: Simulates the process without making any changes.
 - `--unlink`: Removes the symlinks (unstow).
 - `--help`: Displays help information.
+
+## Theme Switcher
+
+The `scripts/switch-theme.sh` script allows you to quickly switch between different color schemes across multiple applications (Ghostty, Kitty, Neovim, and Starship).
+
+### Usage
+```bash
+~/.dotfiles/scripts/switch-theme.sh [main|moon|dawn|catppuccin]
+```
+
+### Supported Themes
+- **main**: Rosé Pine (Default)
+- **moon**: Rosé Pine Moon
+- **dawn**: Rosé Pine Dawn
+- **catppuccin**: Catppuccin Mocha
+
+### What it updates:
+- **Ghostty**: Updates the `theme` setting in `ghostty/config`.
+- **Kitty**: Uses the themes kitten to reload all active instances.
+- **Neovim**: Updates a local state file to switch between Rosé Pine variants or the Catppuccin plugin.
+- **Starship**: Symlinks the appropriate `.toml` config.
+- **Wallpaper**: Changes the system wallpaper (**macOS only**).
+
+---
 
 ## How it Works
 
