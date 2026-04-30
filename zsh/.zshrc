@@ -13,6 +13,10 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# git
+alias gsw='git update-index --skip-worktree'
+alias gnsw='git update-index --no-skip-worktree'
+
 # Github
 alias gh='open https://github.com/GermanViter/'
 
