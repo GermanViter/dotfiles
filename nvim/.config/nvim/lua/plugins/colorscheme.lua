@@ -4,6 +4,7 @@ if not ok then
 end
 
 local is_catppuccin = variant == "catppuccin"
+local is_black = variant == "black"
 
 return {
   -- Catppuccin
@@ -21,11 +22,22 @@ return {
       vim.cmd.colorscheme("catppuccin")
     end,
   },
+  -- Black Metal (Gorgoroth)
+  {
+    "tahayvr/matteblack.nvim",
+    lazy = false,
+    name = "matteblack",
+    enabled = is_black,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("matteblack")
+    end,
+  },
   -- Rosé Pine
   {
     "rose-pine/neovim",
     name = "rose-pine",
-    enabled = not is_catppuccin,
+    enabled = not (is_catppuccin or is_black),
     priority = 1000,
     config = function()
       require("rose-pine").setup({

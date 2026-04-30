@@ -4,11 +4,13 @@
 # 1. main (Rosé Pine)
 # 2. moon (Rosé Pine Moon)
 # 3. dawn (Rosé Pine Dawn)
+# 4. catppuccin (Catppuccin Mocha)
+# 5. black (Black Metal Gorgoroth)
 
 THEME=$1
 
 if [[ -z "$THEME" ]]; then
-    echo "Usage: switch-theme.sh [main|moon|dawn]"
+    echo "Usage: switch-theme.sh [main|moon|dawn|catppuccin|black]"
     exit 1
 fi
 
@@ -38,6 +40,12 @@ dawn)
     GHOSTTY_THEME="rose pine dawn"
     KITTY_THEME="Rosé Pine Dawn"
     NVIM_VARIANT="dawn"
+    WALLPAPER="cyber_girl.jpg"
+    ;;
+black)
+    GHOSTTY_THEME="Black Metal (Gorgoroth)"
+    KITTY_THEME="Black Metal"
+    NVIM_VARIANT="black"
     WALLPAPER="cyber_girl.jpg"
     ;;
 *)

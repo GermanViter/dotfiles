@@ -13,6 +13,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Github
+alias gh='open https://github.com/GermanViter/'
+
 # --- Homebrew Setup ---
 if [[ -f /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"

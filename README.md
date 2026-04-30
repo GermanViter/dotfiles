@@ -88,7 +88,7 @@ The `scripts/switch-theme.sh` script allows you to quickly switch between differ
 
 ### Usage
 ```bash
-~/.dotfiles/scripts/switch-theme.sh [main|moon|dawn|catppuccin]
+~/.dotfiles/scripts/switch-theme.sh [main|moon|dawn|catppuccin|black]
 ```
 
 ### Supported Themes
@@ -96,6 +96,7 @@ The `scripts/switch-theme.sh` script allows you to quickly switch between differ
 - **moon**: Rosé Pine Moon
 - **dawn**: Rosé Pine Dawn
 - **catppuccin**: Catppuccin Mocha
+- **black**: Black Metal Gorgoroth
 
 ### What it updates:
 - **Ghostty**: Updates the `theme` setting in `ghostty/config`.
