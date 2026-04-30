@@ -74,7 +74,7 @@ echo "✓ Neovim variant updated"
 
 # Update Wallpaper
 # Use AppleScript to change wallpaper on macOS
-WALLPAPER_PATH="$DOTFILES/assets/$WALLPAPER"
+WALLPAPER_PATH="$DOTFILES/assets/wallpapers/$WALLPAPER"
 if [ -f "$WALLPAPER_PATH" ]; then
     # Convert path to absolute if it's relative
     [[ "$WALLPAPER_PATH" = /* ]] || WALLPAPER_PATH="$PWD/$WALLPAPER_PATH"
