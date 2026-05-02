@@ -1,14 +1,10 @@
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-        "source": "arch",
-        "padding": {
-            "top": 2
-        },
-        "color": {
-            "1": "red",
-            "2": "blue"
-        }
+        "source": "~/.dotfiles/assets/archlinux.png",
+        "type": "kitty-direct",
+        "width": 50,
+        "height": 25,
     },
     "display": {
         "separator": " -> ",
