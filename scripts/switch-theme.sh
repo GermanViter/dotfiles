@@ -6,6 +6,7 @@
 # 3. dawn (Rosé Pine Dawn)
 # 4. catppuccin (Catppuccin Mocha)
 # 5. black (Black Metal Gorgoroth)
+# 6. gruvbox (Gruvbox Dark)
 
 THEME=$1
 
@@ -26,6 +27,7 @@ main)
     NVIM_VARIANT="main"
     WALLPAPER="cyber_girl.jpg"
     YAZI_THEME="theme-rose-pine.toml"
+    TMUX_THEME="rose-pine-main.tmux"
     ;;
 moon)
     GHOSTTY_THEME="rose pine moon"
@@ -33,6 +35,7 @@ moon)
     NVIM_VARIANT="moon"
     WALLPAPER="cyber_girl.jpg"
     YAZI_THEME="theme-rose-pine.toml"
+    TMUX_THEME="rose-pine-moon.tmux"
     ;;
 catppuccin)
     GHOSTTY_THEME="catppuccin mocha"
@@ -40,6 +43,7 @@ catppuccin)
     NVIM_VARIANT="catppuccin"
     WALLPAPER="1-totoro.png"
     YAZI_THEME="theme-catppuccin.toml"
+    TMUX_THEME="catppuccin.tmux"
     ;;
 dawn)
     GHOSTTY_THEME="rose pine dawn"
@@ -47,6 +51,7 @@ dawn)
     NVIM_VARIANT="dawn"
     WALLPAPER="cyber_girl.jpg"
     YAZI_THEME="theme-rose-pine.toml"
+    TMUX_THEME="rose-pine-dawn.tmux"
     ;;
 black)
     GHOSTTY_THEME="Black Metal (Gorgoroth)"
@@ -54,13 +59,15 @@ black)
     NVIM_VARIANT="black"
     WALLPAPER="1-dark-waters.jpg"
     YAZI_THEME="theme-black.toml"
+    TMUX_THEME="black.tmux"
     ;;
 gruvbox)
-    YAZI_THEME="theme-gruvbox.toml"
     GHOSTTY_THEME="Gruvbox Dark"
     KITTY_THEME="Gruvbox Dark"
     NVIM_VARIANT="gruvbox"
     WALLPAPER="1-tree-tops.jpg"
+    YAZI_THEME="theme-gruvbox.toml"
+    TMUX_THEME="gruvbox.tmux"
     ;;
 *)
     echo "Unknown theme: $THEME"
@@ -134,6 +141,21 @@ if [ -f "$DOTFILES/yazi/.config/yazi/$YAZI_THEME" ]; then
     echo "✓ Yazi updated ($YAZI_THEME)"
 else
     echo "✗ Yazi theme file not found: $YAZI_THEME"
+fi
+
+# Update Tmux
+# Symlink the correct theme file to ~/.tmux_theme.tmux
+TMUX_TARGET="$HOME/.tmux_theme.tmux"
+if [ -f "$DOTFILES/tmux/themes/$TMUX_THEME" ]; then
+    ln -sf "$DOTFILES/tmux/themes/$TMUX_THEME" "$TMUX_TARGET"
+    if [ -n "$TMUX" ]; then
+        tmux source-file "$HOME/.tmux.conf"
+        echo "✓ Tmux updated and reloaded"
+    else
+        echo "✓ Tmux theme symlinked (will apply on next start)"
+    fi
+else
+    echo "✗ Tmux theme file not found: $TMUX_THEME"
 fi
 
 echo "Successfully switched theme to $THEME"

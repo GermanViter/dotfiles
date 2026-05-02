@@ -105,11 +105,11 @@ The `scripts/switch-theme.sh` script allows you to quickly switch between differ
 - **Neovim**: Updates a local state file to switch between Rosé Pine variants or the Catppuccin plugin.
 - **Starship**: Symlinks the appropriate `.toml` config.
 - **Yazi**: Symlinks the appropriate `.toml` theme file.
-- **Wallpaper**: Changes the system wallpaper (**macOS only**).
-- If you are on Linux, you can comment all the lines mentioning `osascript` to avoid errors.
+- **Tmux**: Symlinks the appropriate `.tmux` theme file and reloads the config.
+- **Wallpaper**: Changes the system wallpaper (**macOS and Linux support**).
 
 ### Modifying wallpapers
-To add new wallpapers, add an image to assets/wallpapers/ and update the `WALLPAPER` variable in the `switch case` section for the theme you want. **As mentioned earlier, this feature is only for macOS users**
+To add new wallpapers, add an image to assets/wallpapers/ and update the `WALLPAPER` variable in the `switch case` section for the theme you want. The script supports macOS, Wayland, and X11 wallpaper tools.
 
 ---
 
