@@ -25,13 +25,13 @@ return {
   },
   -- Black Metal (Gorgoroth)
   {
-    "metalelf0/black-metal-theme-neovim",
+    "tahayvr/matteblack.nvim",
     lazy = false,
-    name = "black-metal",
+    name = "matteblack",
     enabled = is_black,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("black-metal-gorgoroth")
+      vim.cmd.colorscheme("matteblack") -- ✅
     end,
   },
   -- Gruvbox
