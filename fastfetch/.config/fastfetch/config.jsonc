@@ -3,8 +3,8 @@
     "logo": {
         "source": "~/.dotfiles/assets/archlinux.png",
         "type": "kitty-direct",
-        "width": 50,
-        "height": 25,
+        "width": 45, 
+        "height": 20,
     },
     "display": {
         "separator": " -> ",
