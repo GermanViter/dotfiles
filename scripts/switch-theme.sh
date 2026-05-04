@@ -25,7 +25,7 @@ main)
     GHOSTTY_THEME="rose pine"
     KITTY_THEME="Rosé Pine"
     NVIM_VARIANT="main"
-    WALLPAPER="japanes gigital art.png"
+    WALLPAPER="swww/1.jpg"
     YAZI_THEME="theme-rose-pine.toml"
     TMUX_THEME="rose-pine-main.tmux"
     ;;
@@ -42,7 +42,7 @@ catppuccin)
     KITTY_THEME="Catppuccin-Mocha"
     NVIM_VARIANT="catppuccin"
     WALLPAPER="1-totoro.png"
-    YAZI_THEME="theme-catppuccin.toml"
+    YAZI_THEME="swww/1.png"
     TMUX_THEME="catppuccin.tmux"
     ;;
 dawn)
