@@ -1,155 +1,132 @@
+// Inspired by Catnap
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-        "source": "~/.dotfiles/assets/archlinux.png",
-        "type": "kitty-direct",
-        "width": 45, 
-        "height": 20,
+        "type": "file",
+        "source": "~/.dotfiles/fastfetch/.config/fastfetch/ascii/berserk.txt",
+        "color": {
+            "1": "38;5;14",
+        },
+        "padding": {
+            "top": 4,
+            "left": 3,
+            "right": 3
+        }
     },
     "display": {
-        "separator": " -> ",
-        "constants": [
-            "──────────────────────────────"
-        ]
+        "separator": " "
     },
     "modules": [
         {
-            "type": "custom",
-            "format": "┌{$1}{$1}┐",
-            "outputColor": "90"
+            "key": "╭───────────╮",
+            "type": "custom"
         },
         {
+            "key": "│ {#31} user    {#keys}│",
             "type": "title",
-            "keyWidth": 10
+            "format": "{user-name}"
         },
         {
-            "type": "custom",
-            "format": "└{$1}{$1}┘",
-            "outputColor": "90"
+            "key": "│ {#32}󰇅 hname   {#keys}│",
+            "type": "title",
+            "format": "{host-name}"
         },
         {
-            "type": "custom",
-            "format": " {#90}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}  {#38}  {#39}       {#38}  {#37}  {#36}  {#35}  {#34}  {#33}  {#32}  {#31}  {#90}"
+            "key": "│ {#33}󰌢 host    {#keys}│",
+            "type": "host"
         },
         {
-            "type": "custom",
-            "format": "┌{$1}{$1}┐",
-            "outputColor": "90"
+            "key": "│ {#34}󰅐 uptime  {#keys}│",
+            "type": "uptime"
         },
         {
-            "type": "os",
-            "key": "{icon} OS",
-            "keyColor": "yellow"
+            "key": "│ {#35}{icon} distro  {#keys}│",
+            "type": "os"
         },
         {
-            "type": "kernel",
-            "key": "│ ├",
-            "keyColor": "yellow"
+            //bios
+            "key": "│ {#36}󰏖 bios    {#keys}│",
+            "type": "bios"
         },
         {
-            "type": "packages",
-            "key": "│ ├󰏖",
-            "keyColor": "yellow"
+            "key": "│ {#36}󰏖 pkgs    {#keys}│",
+            "type": "packages"
         },
         {
-            "type": "shell",
-            "key": "│ └",
-            "keyColor": "yellow"
+            "key": "│ {#31} kernel  {#keys}│",
+            "type": "kernel"
         },
         {
-            "type": "wm",
-            "key": " DE/WM",
-            "keyColor": "blue"
+            "key": "│ {#32}󰇄 desktop {#keys}│",
+            "type": "de"
         },
         {
-            "type": "lm",
-            "key": "│ ├󰧨",
-            "keyColor": "blue"
+            "key": "│ {#33} wm      {#keys}│",
+            "type": "wm"
         },
         {
-            "type": "wmtheme",
-            "key": "│ ├󰉼",
-            "keyColor": "blue"
+            "key": "│ {#34} term    {#keys}│",
+            "type": "terminal"
         },
         {
-            "type": "icons",
-            "key": "│ ├󰀻",
-            "keyColor": "blue"
+            "key": "│ {#35} shell   {#keys}│",
+            "type": "shell"
         },
         {
-            "type": "terminal",
-            "key": "│ ├",
-            "keyColor": "blue"
+            "key": "│ {#36}󰛖 font    {#keys}│",
+            "type": "terminalfont"
         },
         {
-            "type": "wallpaper",
-            "key": "│ └󰸉",
-            "keyColor": "blue"
-        },
-        {
-            "type": "host",
-            "key": "󰌢 PC",
-            "keyColor": "green"
-        },
-        {
+            "key": "│ {#31}󰍛 cpu     {#keys}│",
             "type": "cpu",
-            "key": "│ ├󰻠",
-            "keyColor": "green"
+            "showPeCoreCount": true
         },
         {
-            "type": "gpu",
-            "key": "│ ├󰍛",
-            "keyColor": "green"
+            "key": "│ {#32}󰢮 gpu     {#keys}│",
+            "type": "gpu"
         },
         {
+            "key": "│ {#33}󰉉 disk    {#keys}│",
             "type": "disk",
-            "key": "│ ├",
-            "keyColor": "green"
+            "folders": "/"
         },
         {
-            "type": "memory",
-            "key": "│ ├󰑭",
-            "keyColor": "green"
+            "key": "│ {#34} memory  {#keys}│",
+            "type": "memory"
         },
         {
-            "type": "swap",
-            "key": "│ ├󰓡",
-            "keyColor": "green"
+            "key": "│ {#35}󰩟 network {#keys}│",
+            "type": "localip",
+            "format": "{ipv4} ({ifname})"
         },
         {
-            "type": "uptime",
-            "key": "│ ├󰅐",
-            "keyColor": "green"
+            "key": "│ {#36}󰁹 battery {#keys}│",
+            "type": "battery"
+        },
+                {
+            // local ip 
+            "key": "│ {#31}󰩟 network {#keys}│",
+            "type": "localip",
+            "format": "{ipv4} ({ifname})"
         },
         {
-            "type": "display",
-            "key": "│ └󰍹",
-            "keyColor": "green"
+            "key": "│ {#33}󰌢 host    {#keys}│",
+            "type": "host"
         },
         {
-            "type": "sound",
-            "key": " SND",
-            "keyColor": "cyan"
+            "key": "│ {#33}󰌢 host    {#keys}│",
+            "type": "host"
         },
         {
-            "type": "player",
-            "key": "│ ├󰥠",
-            "keyColor": "cyan"
+            "key": "│ {#32} colors  {#keys}│",
+            "type": "colors",
+            "symbol": "circle"
         },
         {
-            "type": "media",
-            "key": "│ └󰝚",
-            "keyColor": "cyan"
+            "key": "╰───────────╯",
+            "type": "custom"
         },
-        {
-            "type": "custom",
-            "format": "└{$1}{$1}┘",
-            "outputColor": "90"
-        },
-        "break",
-        {
-            "type": "custom",
-            "format": " {#90}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}  {#38}  {#39}       {#38}  {#37}  {#36}  {#35}  {#34}  {#33}  {#32}  {#31}  {#90}"
-        }
+        
+
     ]
 }
