@@ -1,6 +1,8 @@
 # vim mode 
 bindkey -v
 
+# ssh
+alias ssh-german='ssh true_ssh_container'   
 
 # Lazy
 alias ..='cd ..'

@@ -22,7 +22,7 @@
 # 
 # Cycles are not allowed. If a cycle is detected, an error will be logged and
 # the configuration file will be ignored.
-theme = Gruvbox Dark
+theme = rose pine moon
 macos-titlebar-style = hidden
 
 # The command to run, usually a shell. If this is not an absolute path, it'll
@@ -240,7 +240,7 @@ macos-icon-screen-color = black
 # widgets to show through which isn't generally desirable.
 # 
 # On macOS, changing this configuration requires restarting Ghostty completely.
-background-opacity = 0.95
+background-opacity = 0.8
 ############
 
 
@@ -278,7 +278,7 @@ background-opacity = 0.95
 # need to set environment-specific settings and/or install third-party plugins
 # in order to support background blur, as there isn't a unified interface for
 # doing so.
-background-blur = false
+background-blur = true
 
 # The opacity level (opposite of transparency) of an unfocused split.
 # Unfocused splits by default are slightly faded out to make it easier to see
