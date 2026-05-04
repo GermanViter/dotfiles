@@ -78,11 +78,11 @@ esac
 echo "Switching to $THEME..."
 
 # Update Ghostty
-if [ -f "$DOTFILES/ghostty/.config/ghostty/config" ]; then
-    sed -i '' "s/^theme = .*/theme = $GHOSTTY_THEME/" "$DOTFILES/ghostty/.config/ghostty/config"
+if [ -f "$DOTFILES/ghostty/.config/ghostty/config.ghostty" ]; then
+    sed -i '' "s/^theme = .*/theme = $GHOSTTY_THEME/" "$DOTFILES/ghostty/.config/ghostty/config.ghostty"
     echo "✓ Ghostty updated"
 else
-    echo "✗ Ghostty config not found at $DOTFILES/ghostty/.config/ghostty/config"
+    echo "✗ Ghostty config not found at $DOTFILES/ghostty/.config/ghostty/config.ghostty"
 fi
 
 # Update Kitty
