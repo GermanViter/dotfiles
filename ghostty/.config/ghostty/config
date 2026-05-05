@@ -1,31 +1,10 @@
 # To get the default values
 # ghostty +show-config --default --docs > ~/github/dotfiles-latest/ghostty/config-default
 
+# Theme
+config-file = theme.config
+
 command = /bin/zsh
-
-# To get syntax highlighting in neovim, see
-# ~/github/dotfiles-latest/neovim/neobean/lua/plugins/ghostty.lua
-
-# HACK: How to setup the Ghostty terminal, is it just hype? READ PINNED MESSAGE
-# https://youtu.be/rCiq5CyFFhA
-
-# No way of reloading config via command yet, only via keymap cmd+shift+,
-# Created a script to do it so that its reloaded with my colorscheme selector
-
-# Additional configuration files to read. This configuration can be repeated
-# to read multiple configuration files. Configuration files themselves can
-# load more configuration files. Paths are relative to the file containing the
-# `config-file` directive. For command-line arguments, paths are relative to
-# the current working directory.
-# 
-# Prepend a ? character to the file path to suppress errors if the file does
-# not exist. If you want to include a file that begins with a literal ?
-# character, surround the file path in double quotes (").
-# 
-# Cycles are not allowed. If a cycle is detected, an error will be logged and
-# the configuration file will be ignored.
-theme = Rose Pine
-macos-titlebar-style = hidden
 
 # The command to run, usually a shell. If this is not an absolute path, it'll
 # be looked up in the `PATH`. If this is not set, a default will be looked up

@@ -23,7 +23,7 @@
 # 
 # Cycles are not allowed. If a cycle is detected, an error will be logged and
 # the configuration file will be ignored.
-theme = Catppuccin Mocha
+theme = Gruvbox Dark
 macos-titlebar-style = hidden
 
 # The command to run, usually a shell. If this is not an absolute path, it'll

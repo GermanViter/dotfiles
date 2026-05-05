@@ -1,4 +1,4 @@
-@import "mocha.css";
+@import "theme.css";
 
 @define-color background @base;
 @define-color foreground @text;
@@ -15,13 +15,19 @@
     min-height: 0;
 }
 
+#window {
+    margin-top: 10px;
+}
+
 #idle_inhibitor,
 #power-profiles-daemon {
     font-size: 12px;
     padding-right: 15px
 }
 
+
 window#waybar {
+    margin-top: 10px;
     background-color: transparent;
     color: @foreground;
     margin: 8px;
@@ -69,11 +75,25 @@ window#waybar {
     margin-top: 10px;
 }
 
+
+.modules-center {
+    margin-right: 12px;   
+    margin-top: 10px;
+}
+
+
+#pulseaudio {
+    padding-right: 10px;
+    margin: 0 5px;
+    padding: 0 15px;
+}
+
 #battery,
 #pulseaudio,
 #backlight,
 #idle_inhibitor,
 #mpd,
+#window,
 #power-profiles-daemon,
 #keyboard-state,
 #language {

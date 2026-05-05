@@ -1,19 +1,31 @@
-#!/bin/bash
-
-# Directory containing wallpapers
+#!/usr/bin/env bash
 WALLPAPER_DIR="$HOME/.dotfiles/assets/wallpapers/swww/"
 
-# Get a random wallpaper from the directory
-WALLPAPER=$(find "$WALLPAPER_DIR" -type f | shuf -n 1)
-
-# Check if swww-daemon or awww-daemon is running, if not start it
-if ! pgrep -x "swww-daemon" >/dev/null && ! pgrep -x "awww-daemon" >/dev/null; then
-    swww-daemon
+# Vérifie que swww-daemon tourne
+if ! pgrep -x swww-daemon >/dev/null; then
+    swww-daemon &
+    sleep 0.5
 fi
 
-# Set the wallpaper with an animation
-swww img "$WALLPAPER" \
-    --transition-type wipe \
-    --transition-fps 180
+# Liste les images et affiche via wofi
+SELECTED=$(
+    find "$WALLPAPER_DIR" -type f \( \
+        -iname "*.jpg" -o -iname "*.jpeg" \
+        -o -iname "*.png" -o -iname "*.gif" \
+        -o -iname "*.webp" \
+        \) | sort | xargs -I{} basename {} |
+        wofi --dmenu \
+            --prompt "Wallpaper" \
+            --insensitive \
+            --cache-file /dev/null
+)
 
-echo "Wallpaper set to: $WALLPAPER"
+# Si rien sélectionné, on quitte
+[ -z "$SELECTED" ] && exit 0
+
+# Applique avec une transition sympa
+swww img "$WALLPAPER_DIR/$SELECTED" \
+    --transition-type grow \
+    --transition-pos "$(hyprctl cursorpos)" \
+    --transition-duration 1.5 \
+    --transition-fps 180
