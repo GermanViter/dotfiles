@@ -73,7 +73,7 @@ declare -A WALLPAPERS=(
     [dawn]="swww/japanes gigital art.png"
     [catppuccin]="swww/1.jpg"
     [black]="swww/1-dark-waters.jpg"
-    [gruvbox]="swww/1-tree-tops.jpg"
+    [gruvbox]="swww/5-leaves.jpg"
 )
 
 declare -A NVIM_VARIANTS=(
