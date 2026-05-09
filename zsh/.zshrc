@@ -48,7 +48,7 @@ export EDITOR='nvim'
 # Use the symlinked path in ~/.config for portability
 export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 if command -v starship >/dev/null 2>&1; then
-#    eval "$(starship init zsh)"
+    eval "$(starship init zsh)"
 fi
 
 # --- Zoxide (Navigation) ---
