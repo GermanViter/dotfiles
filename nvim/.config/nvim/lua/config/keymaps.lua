@@ -18,9 +18,6 @@ vim.keymap.set("n", "<leader>d", "<C-x>")
 -- undo tree toggle
 vim.keymap.set("n", "<leader>U", ":UndotreeToggle<CR>")
 
--- telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+--Lazy
+vim.keymap.set("n", "<leader>L", vim.cmd.Lazy)
+
