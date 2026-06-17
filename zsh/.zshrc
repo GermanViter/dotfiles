@@ -2,10 +2,10 @@
 alias ssh-german='ssh true_ssh_container'   
 
 # Lazy
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
+alias ..='z ..'
+alias ...='z ../..'
+alias ....='z ../../..'
+alias .....='z ../../../..'
 alias nv='nvim'
 
 # git
