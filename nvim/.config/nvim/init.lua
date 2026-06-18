@@ -11,3 +11,15 @@ vim.filetype.add({
     tsx = "typescriptreact",
   },
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = "IncSearch",  -- Highlight group to use
+      timeout = 150,          -- Duration in milliseconds
+      on_visual = true,       -- Highlight when yanking visual selection
+      on_macro = false,       -- Do not highlight when executing macros
+    })
+  end,
+})   
