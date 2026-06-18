@@ -40,15 +40,6 @@ declare -A ALACRITTY_THEMES=(
     [gruvbox]="gruvbox-dark.toml"
 )
 
-declare -A HYPR_THEMES=(
-    [main]="rose-pine.conf"
-    [moon]="rose-pine-moon.conf"
-    [dawn]="rose-pine-dawn.conf"
-    [catppuccin]="mocha.conf"
-    [black]="black-metal.conf"
-    [gruvbox]="gruvbox.conf"
-)
-
 declare -A WAYBAR_THEMES=(
     [main]="rose-pine.css"
     [moon]="rose-pine-moon.css"
@@ -74,15 +65,6 @@ declare -A WALLPAPERS=(
     [catppuccin]="swww/1.jpg"
     [black]="swww/1-dark-waters.jpg"
     [gruvbox]="swww/5-leaves.jpg"
-)
-
-declare -A NVIM_VARIANTS=(
-    [main]="main"
-    [moon]="moon"
-    [dawn]="dawn"
-    [catppuccin]="catppuccin"
-    [black]="black"
-    [gruvbox]="gruvbox"
 )
 
 declare -A YAZI_THEMES=(
@@ -134,15 +116,6 @@ mkdir -p "$(dirname "$NVIM_VARIANT_FILE")"
 echo "return \"${NVIM_VARIANTS[$THEME]}\"" >"$NVIM_VARIANT_FILE"
 echo "✓ Neovim updated"
 
-# --- 5. Hyprland ---
-HYPR_THEME_FILE="$DOTFILES/hypr/.config/hypr/theme.conf"
-rm -f "$HYPR_THEME_FILE"
-cp "$DOTFILES/hypr/.config/hypr/themes/${HYPR_THEMES[$THEME]}" "$HYPR_THEME_FILE"
-if command -v hyprctl >/dev/null 2>&1; then
-    hyprctl reload
-    echo "✓ Hyprland updated and reloaded"
-fi
-
 # --- 6. Waybar ---
 WAYBAR_THEME_FILE="$DOTFILES/waybar/.config/waybar/theme.css"
 rm -f "$WAYBAR_THEME_FILE"
@@ -155,20 +128,6 @@ if pgrep -x waybar >/dev/null; then
     echo "✓ Waybar updated and reloaded"
 else
     echo "✓ Waybar updated"
-fi
-
-# --- 7. Wofi ---
-WOFI_THEME_FILE="$DOTFILES/wofi/.config/wofi/theme.css"
-rm -f "$WOFI_THEME_FILE"
-cp "$DOTFILES/wofi/.config/wofi/themes/${WOFI_THEMES[$THEME]}" "$WOFI_THEME_FILE"
-echo "✓ Wofi updated"
-
-# --- 8. Hyprlock ---
-HYPRLOCK_CONFIG="$DOTFILES/hypr/.config/hypr/hyprlock.conf"
-WALLPAPER_PATH="$DOTFILES/assets/wallpapers/${WALLPAPERS[$THEME]}"
-if [ -f "$HYPRLOCK_CONFIG" ]; then
-    sed -i "s|^\$wall = .*|\$wall = $WALLPAPER_PATH|" "$HYPRLOCK_CONFIG"
-    echo "✓ Hyprlock updated"
 fi
 
 # --- 9. Tmux ---
@@ -207,18 +166,6 @@ else
     # Restore standard if we have a backup or a known state
     # For now, I'll just leave it.
     echo "✓ Starship left as standard"
-fi
-
-# --- 12. Wallpaper ---
-if command -v swww >/dev/null 2>&1; then
-
-    if ! pgrep -x swww-daemon >/dev/null; then
-        swww-daemon &
-        sleep 0.5
-    fi
-
-    swww img "$WALLPAPER_PATH" --transition-type wipe --transition-fps 180
-    echo "✓ Wallpaper updated"
 fi
 
 echo "Successfully switched to theme: $THEME"
