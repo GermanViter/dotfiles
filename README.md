@@ -72,6 +72,8 @@ To apply these configurations to a new system:
    # or run with --brew to handle it via the script.
    ~/.dotfiles/scripts/setup_symlinks.sh --brew
    ```
+> [!TIP]
+> If you are on an arch based OS and using hyprland, you can switch branches `git switch caelestia_dots` and use the dots in there
 
 ### Script Options
 
