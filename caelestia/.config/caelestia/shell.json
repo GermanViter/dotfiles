@@ -1,0 +1,88 @@
+{
+    "appearance": {
+        "anim": {
+            "durations": {
+                "scale": 1.712302548631124
+            }
+        },
+        "transparency": {
+            "base": 1,
+            "enabled": false,
+            "layers": 1
+        }
+    },
+    "background": {
+        "desktopClock": {
+            "background": {
+                "enabled": false
+            },
+            "enabled": true,
+            "position": "top-right",
+            "shadow": {
+                "enabled": true
+            }
+        }
+    },
+    "bar": {
+        "clock": {
+            "background": true
+        },
+        "persistent": true,
+        "popouts": {
+            "tray": true
+        },
+        "scrollActions": {
+            "workspaces": true
+        },
+        "status": {
+            "showAudio": true,
+            "showKbLayout": true,
+            "showMicrophone": true
+        },
+        "tray": {
+            "background": false
+        },
+        "workspaces": {
+            "shown": 5
+        }
+    },
+    "border": {
+        "rounding": 35,
+        "thickness": 12
+    },
+    "dashboard": {
+        "performance": {
+            "showGpu": true
+        },
+        "showDashboard": true
+    },
+    "general": {
+        "idle": {
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "timeout": 60
+                },
+                {
+                    "idleAction": [
+                        "systemctl",
+                        "suspend-then-hibernate"
+                    ],
+                    "timeout": 5
+                }
+            ]
+        }
+    },
+    "launcher": {
+        "enableDangerousActions": true,
+        "showOnHover": false,
+        "vimKeybinds": true
+    },
+    "services": {
+        "useTwelveHourClock": false
+    },
+    "sidebar": {
+        "enabled": true
+    }
+}
