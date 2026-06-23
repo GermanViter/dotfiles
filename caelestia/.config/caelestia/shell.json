@@ -5,6 +5,9 @@
                 "scale": 1.712302548631124
             }
         },
+        "rounding": {
+            "scale": 1
+        },
         "transparency": {
             "base": 1,
             "enabled": false,
