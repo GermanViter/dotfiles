@@ -59,24 +59,6 @@
         },
         "showDashboard": true
     },
-    "general": {
-        "idle": {
-            "lockBeforeSleep": true,
-            "timeouts": [
-                {
-                    "idleAction": "lock",
-                    "timeout": 60
-                },
-                {
-                    "idleAction": [
-                        "systemctl",
-                        "suspend-then-hibernate"
-                    ],
-                    "timeout": 5
-                }
-            ]
-        }
-    },
     "launcher": {
         "enableDangerousActions": true,
         "showOnHover": false,
