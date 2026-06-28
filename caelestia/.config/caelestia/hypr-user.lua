@@ -1,11 +1,13 @@
-hl.env("HYPRCURSOR_THEME", "Twilight-cursors")
+hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
 hl.env("HYPRCURSOR_SIZE", "30")
-hl.env("XRCURSOR_THEME", "Twilight-cursors")
-hl.env("XRCURSOR_SIZE", "30")
 
-if hl.exec then
-    hl.exec("hyprctl setcursor Twilight-cursors 24")
-end
+hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
+hl.env("XCURSOR_SIZE", "30")
+
+hl.on("hyprland.start", function ()
+    hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
+    hl.exec_cmd("hyprctl reload")
+end)
 
 hl.monitor({
     output  = "DP-2",
