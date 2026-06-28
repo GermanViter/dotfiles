@@ -9,6 +9,10 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("hyprctl reload")
 end)
 
+misc = {
+    vrr = 0
+}
+
 hl.monitor({
     output  = "DP-2",
     mode    = "2560x1440@144",
