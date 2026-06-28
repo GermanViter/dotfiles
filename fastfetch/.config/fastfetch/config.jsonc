@@ -96,16 +96,6 @@
             "key": "│ {#36}󰁹 battery {#keys}│",
             "type": "battery"
         },
-                {
-            // local ip 
-            "key": "│ {#31}󰩟 network {#keys}│",
-            "type": "localip",
-            "format": "{ipv4} ({ifname})"
-        },
-        {
-            "key": "│ {#33}󰌢 host    {#keys}│",
-            "type": "host"
-        },
         {
             "key": "│ {#33}󰌢 host    {#keys}│",
             "type": "host"
