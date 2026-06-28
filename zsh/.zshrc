@@ -7,6 +7,7 @@ alias ...='z ../..'
 alias ....='z ../../..'
 alias .....='z ../../../..'
 alias nv='nvim'
+alias preview_sddm='sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/sddm-astronaut-theme/'
 
 # git
 alias gsw='git update-index --skip-worktree'
