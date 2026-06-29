@@ -21,8 +21,8 @@ This repository uses a modular structure where each directory represents an appl
 ## Screenshots
 
 <ul align="center">
-  <li><h3>Fastfetch</h3><img src="assets/fastfetch.png" width="400" /></li>
-  <li><h3>NeoVim</h3><img src="assets/neovim.png" width="400" /></li>
+  <li><h3>Fastfetch</h3><img src="assets/wallpapers/fastfetch.png" width="400" /></li>
+  <li><h3>NeoVim</h3><img src="assets/wallpapers/neovim.png" width="400" /></li>
 </ul>
 
 > [!TIP]
