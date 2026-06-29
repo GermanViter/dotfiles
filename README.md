@@ -44,9 +44,12 @@ To add private configurations (like work-specific paths or API keys) without com
 These files are ignored by Git.
 
 ## Dependencies
-- Git (for cloning the repository)
-- Zsh (for shell configurations)
-- GNU Stow (for setting up the symlinks)
+- **Git** (for cloning the repository)
+- **Zsh** (for shell configurations)
+- **GNU Stow** (for setting up the symlinks)
+  - *Arch Linux / CachyOS*: `sudo pacman -S stow`
+  - *Debian / Ubuntu*: `sudo apt install stow`
+  - *Fedora*: `sudo dnf install stow`
 
 ## Installation
 
@@ -69,7 +72,7 @@ To apply these configurations to a new system:
 
 ## Theme Switcher
 
-The `scripts/switch-theme.sh` script allows you to quickly switch between different color schemes across multiple applications (Kitty and Starship).
+The `scripts/switch-theme.sh` script allows you to quickly switch between different color schemes across multiple applications.
 
 ### Usage
 ```bash
@@ -85,10 +88,10 @@ The `scripts/switch-theme.sh` script allows you to quickly switch between differ
 - **gruvbox**: Gruvbox Dark
 
 ### What it updates:
-- **Kitty**: Uses the themes kitten to reload all active instances.
-- **Neovim**: Updates a local state file to switch between Rosé Pine variants or the Catppuccin plugin.
-- **Starship**: Symlinks the appropriate `.toml` config.
-- **Tmux**: Symlinks the appropriate `.tmux` theme file and reloads the config.
+- **Kitty**: Reloads all active instances with the new theme color scheme.
+- **Neovim**: Updates the local theme variant configuration file (`theme_variant.lua`).
+- **Starship**: Restores the theme-specific prompt configuration (`starship.toml`).
+- *Note: Other applications (such as Tmux, Yazi, Waybar, Wofi, Ghostty, Alacritty) will also be updated automatically if their configurations are added to this repository.*
 
 ---
 
