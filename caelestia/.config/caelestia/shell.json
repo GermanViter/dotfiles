@@ -59,6 +59,21 @@
         },
         "showDashboard": true
     },
+    "general": {
+        "idle": {
+            "inhibitWhenAudio": true,
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "inhibitWhenAudio": false,
+                    "inhibitWhenCharging": false,
+                    "respectInhibitors": true,
+                    "timeout": 300
+                }
+            ]
+        }
+    },
     "launcher": {
         "enableDangerousActions": true,
         "showOnHover": false,
